@@ -2,7 +2,6 @@
 const express =require('express');
 const app= new express();
 const bodyParser =require('body-parser');
-const path= require('path');
 
 // Security Middleware Lib Import
 const rateLimit =require('express-rate-limit');
@@ -25,9 +24,9 @@ app.use(hpp());
 // Configure CORS
 const corsOptions = {
   origin: ['http://localhost:5173'], // Add your frontend URLs here
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, 
 };
 app.use(cors(corsOptions));
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Controller = require('../controllers/Controller');
+const Controller = require('../Controller/Controller');
 
 // Intro routes
 router.post('/postintro', Controller.createIntro); // Create a new intro
