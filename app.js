@@ -17,54 +17,44 @@ const mongoose =require('mongoose');
 app.use(express.static('client/build'));
 
 // Security Middleware Implement
-app.use(cors())
-app.use(helmet())
-app.use(mongoSanitize())
-app.use(xss())
-app.use(hpp())
-mongoose.set('strictQuery', false);
+app.use(helmet());
+app.use(mongoSanitize());
+app.use(xss());
+app.use(hpp());
+
+// Configure CORS
+const corsOptions = {
+  origin: ['http://localhost:5173'], // Add your frontend URLs here
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+app.use(cors(corsOptions));
 
 // Body Parser Implement
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Request Rate Limit
-const limiter= rateLimit({windowMs:15*60*1000,max:3000})
-app.use(limiter)
+const limiter= rateLimit({windowMs:15*60*1000,max:3000});
+app.use(limiter);
 
 const appRouter =require('./src/routes/api');
-
-app.use("/api", appRouter)
+app.use("/api", appRouter);
 
 // Mongo DB Database Connection
 let URI="mongodb+srv://mobinulislam:8NWFTTL3vZqC2W0L@cluster0.mskd8ua.mongodb.net/protfolio";
+mongoose.set('strictQuery', false);
 
 mongoose.connect(URI, {
     useNewUrlParser: true,
-        useUnifiedTopology: true,
-
+    useUnifiedTopology: true,
 })
 .then(()=> {
     app.listen(5050, () => {
-        console.log(`Mongoose is connected`)
-      })
+        console.log(`Mongoose is connected`);
+    });
 }).catch(e => {
-    console.log(e)
-})
+    console.log(e);
+});
 
-module.exports = app
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = app;
