@@ -1,10 +1,10 @@
-const IntroModel = require('../models/IntroModel');
-const BlogModel = require('../models/BlogModel');
-const EducationModel = require('../models/EducationModel');
-const ExperienceModel = require('../models/ExperienceModel');
-const GalleryModel = require('../models/GalleryModel');
-const PortfolioModel = require('../models/PortfolioModel');
-const ServiceModel = require('../models/ServiceModel');
+const IntroModel = require('../models/introModel');
+const BlogModel = require('../models/blogModel');
+const EducationModel = require('../models/educationModel');
+const ExperienceModel = require('../models/experienceModel');
+const GalleryModel = require('../models/galleryModel');
+const PortfolioModel = require('../models/portfolioModel');
+const ServiceModel = require('../models/serviceModel');
 
 // CRUD for IntroModel
 exports.createIntro = async (req, res) => {
