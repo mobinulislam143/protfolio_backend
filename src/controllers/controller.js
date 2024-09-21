@@ -3,7 +3,7 @@ const BlogModel = require('../models/BlogModel');
 const EducationModel = require('../models/EducationModel');
 const ExperienceModel = require('../models/ExperienceModel');
 const GalleryModel = require('../models/GalleryModel');
-const PortfolioModel = require('../models/portfolioModel');
+const PortfolioModel = require('../models/PortfolioModel');
 const ServiceModel = require('../models/ServiceModel');
 
 // CRUD for IntroModel
@@ -25,10 +25,27 @@ exports.getAllIntro = async (req, res) => {
     }
 };
 
+// New method to get a single intro by ID
+exports.getIntroById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await IntroModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Intro not found" });
+        }
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
 exports.updateIntro = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await IntroModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Intro not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -64,10 +81,27 @@ exports.getAllBlogs = async (req, res) => {
     }
 };
 
+// New method to get a single blog by ID
+exports.getBlogById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await BlogModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Blog not found" });
+        }
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
 exports.updateBlog = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await BlogModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Blog not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -103,10 +137,27 @@ exports.getAllEducation = async (req, res) => {
     }
 };
 
+// New method to get a single education by ID
+exports.getEducationById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await EducationModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Education not found" });
+        }
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
 exports.updateEducation = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await EducationModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Education not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -142,10 +193,27 @@ exports.getAllExperiences = async (req, res) => {
     }
 };
 
+// New method to get a single experience by ID
+exports.getExperienceById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await ExperienceModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Experience not found" });
+        }
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
 exports.updateExperience = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await ExperienceModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Experience not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -172,9 +240,23 @@ exports.createGallery = async (req, res) => {
     }
 };
 
-exports.getAllGalleries = async (req, res) => {
+exports.getAllGallery = async (req, res) => {
     try {
         const data = await GalleryModel.find();
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
+// New method to get a single gallery by ID
+exports.getGalleryById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await GalleryModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Gallery not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -185,6 +267,9 @@ exports.updateGallery = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await GalleryModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Gallery not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -211,9 +296,23 @@ exports.createPortfolio = async (req, res) => {
     }
 };
 
-exports.getAllPortfolios = async (req, res) => {
+exports.getAllPortfolio = async (req, res) => {
     try {
         const data = await PortfolioModel.find();
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
+// New method to get a single portfolio by ID
+exports.getPortfolioById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await PortfolioModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Portfolio not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -224,6 +323,9 @@ exports.updatePortfolio = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await PortfolioModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Portfolio not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -250,9 +352,23 @@ exports.createService = async (req, res) => {
     }
 };
 
-exports.getAllServices = async (req, res) => {
+exports.getAllService = async (req, res) => {
     try {
         const data = await ServiceModel.find();
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
+// New method to get a single service by ID
+exports.getServiceById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await ServiceModel.findById(id);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Service not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
@@ -263,6 +379,9 @@ exports.updateService = async (req, res) => {
     try {
         const id = req.params.id;
         const data = await ServiceModel.findByIdAndUpdate(id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Service not found" });
+        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });

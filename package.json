@@ -1,5 +1,5 @@
 {
-  "name": "CRUD",
+  "name": "portfolio",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,7 +13,6 @@
   "dependencies": {
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
-    "daisyui": "^2.15.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-mongo-sanitize": "^2.2.0",
