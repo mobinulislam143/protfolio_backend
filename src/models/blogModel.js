@@ -7,8 +7,7 @@ const DataSchema = mongoose.Schema(
     
    
   },
-  { versionKey: false, timeStamps: true }
-);
+  {timestamps: true, versionKey: false});
 
 const BlogModel = mongoose.model("blog", DataSchema);
 module.exports = BlogModel;

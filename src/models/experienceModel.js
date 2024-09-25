@@ -8,8 +8,7 @@ const DataSchema = mongoose.Schema(
     desc: {type: String},
    
   },
-  { versionKey: false, timeStamps: true }
-);
+  {timestamps: true, versionKey: false});
 
 const ExperienceModel = mongoose.model("experiences", DataSchema);
 module.exports = ExperienceModel;

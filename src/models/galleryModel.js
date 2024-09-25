@@ -10,8 +10,7 @@ const DataSchema = mongoose.Schema(
   
    
   },
-  { versionKey: false, timeStamps: true }
-);
+  {timestamps: true, versionKey: false});
 
 const GalleryModel = mongoose.model("gallerys", DataSchema);
 module.exports = GalleryModel;

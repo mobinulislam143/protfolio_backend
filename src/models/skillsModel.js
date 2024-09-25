@@ -5,7 +5,7 @@ const DataSchema = mongoose.Schema(
     img: {type: String},
    
   },
-  { versionKey: false, timeStamps: true }
+  {timestamps: true, versionKey: false}
 );
 
 const SkillModel = mongoose.model("skills", DataSchema);

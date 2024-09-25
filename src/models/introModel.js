@@ -7,8 +7,7 @@ const DataSchema = mongoose.Schema(
     img1: {type: String},
    
   },
-  { versionKey: false, timeStamps: true }
-);
+  {timestamps: true, versionKey: false});
 
 const IntroModel = mongoose.model("intros", DataSchema);
 module.exports = IntroModel;

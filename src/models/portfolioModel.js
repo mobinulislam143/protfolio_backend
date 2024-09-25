@@ -8,8 +8,7 @@ const DataSchema = mongoose.Schema(
     githublink: {type: String},
     livelink: {type: String},
   },
-  { versionKey: false, timeStamps: true }
-);
+  {timestamps: true, versionKey: false});
 
 const PortfolioModel = mongoose.model("protfolios", DataSchema);
 module.exports = PortfolioModel;
