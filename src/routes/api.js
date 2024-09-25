@@ -4,6 +4,9 @@ const Controller = require('../Controller/Controller');
 
 // Intro routes
 router.post('/postintro', Controller.createIntro); // Create a new intro
+router.post('/createSkills', Controller.createSkills); // Create a new intro
+router.get('/getSkills', Controller.getSkills); // Create a new intro
+router.get('/deleteSkills/:id', Controller.deleteSkills); // Create a new intro
 router.get('/getintro', Controller.getIntro); // Get all intros
 
 router.put('/updateintro/:id', Controller.updateIntro); // Update an intro by ID

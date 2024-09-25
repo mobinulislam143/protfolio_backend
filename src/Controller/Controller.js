@@ -5,11 +5,37 @@ const ExperienceModel = require('../models/experienceModel');
 const GalleryModel = require('../models/galleryModel');
 const PortfolioModel = require('../models/portfolioModel');
 const ServiceModel = require('../models/serviceModel');
+const SkillsModel = require('../models/skillsModel');
 
 // CRUD for IntroModel
 exports.createIntro = async (req, res) => {
     try {
         const data = await IntroModel.create(req.body);
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+exports.createSkills = async (req, res) => {
+    try {
+        const data = await SkillsModel.create(req.body);
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+exports.getSkills = async (req, res) => {
+    try {
+        const data = await SkillsModel.find()
+        res.status(200).json({ status: "success", data });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+exports.deleteSkills = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await SkillsModel.findByIdAndDelete(id);
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
