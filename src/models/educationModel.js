@@ -5,7 +5,7 @@ const DataSchema = mongoose.Schema(
     institute: {type: String},
     degree: {type: String},
     passingyear: {type: String},
-    duration: {type: String},
+    result: {type: String},
    
   
    

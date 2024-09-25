@@ -16,23 +16,9 @@ exports.createIntro = async (req, res) => {
     }
 };
 
-exports.getAllIntro = async (req, res) => {
+exports.getIntro = async (req, res) => {
     try {
         const data = await IntroModel.find();
-        res.status(200).json({ status: "success", data });
-    } catch (e) {
-        res.status(400).json({ status: "fail", data: e.toString() });
-    }
-};
-
-// New method to get a single intro by ID
-exports.getIntroById = async (req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await IntroModel.findById(id);
-        if (!data) {
-            return res.status(404).json({ status: "fail", message: "Intro not found" });
-        }
         res.status(200).json({ status: "success", data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });

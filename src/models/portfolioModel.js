@@ -5,11 +5,8 @@ const DataSchema = mongoose.Schema(
     title: {type: String},
     img: {type: String},
     desc: {type: String},
-    link: {type: String},
-
-   
-  
-   
+    githublink: {type: String},
+    livelink: {type: String},
   },
   { versionKey: false, timeStamps: true }
 );

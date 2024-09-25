@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const DataSchema = mongoose.Schema(
   {
    
-    title: {type: String},
-    position: {type: String},
-    img: {type: String},
+    company: {type: String},
     duration: {type: String},
+    position: {type: String},
+    desc: {type: String},
    
   },
   { versionKey: false, timeStamps: true }

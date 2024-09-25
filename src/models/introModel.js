@@ -5,10 +5,6 @@ const DataSchema = mongoose.Schema(
     subtitle: {type: String},
     desc: {type: String},
     img1: {type: String},
-    socialimg: {type: String},
-    sociallink: {type: String},
-    
-  
    
   },
   { versionKey: false, timeStamps: true }
