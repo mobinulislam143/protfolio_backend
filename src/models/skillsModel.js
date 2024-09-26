@@ -1,12 +1,21 @@
 const mongoose = require("mongoose");
-const DataSchema = mongoose.Schema(
+
+const SkillSchema = new mongoose.Schema(
   {
-    skills: {type: String},
-    img: {type: String},
-   
+    skillName: { type: String, required: true }, 
+    percentage: { type: Number, required: true } 
   },
-  {timestamps: true, versionKey: false}
+  { _id: false }
+);
+const DataSchema = new mongoose.Schema(
+  {
+    frontendskills: { type: [SkillSchema], default: [] }, 
+    backendskills: { type: [SkillSchema], default: [] } 
+  },
+  { timestamps: true, versionKey: false }
 );
 
+
 const SkillModel = mongoose.model("skills", DataSchema);
+
 module.exports = SkillModel;

@@ -16,31 +16,75 @@ exports.createIntro = async (req, res) => {
         res.status(400).json({ status: "fail", data: e.toString() });
     }
 };
-exports.createSkills = async (req, res) => {
+
+
+
+
+
+
+exports.addskills = async (req, res) => {
     try {
-        const data = await SkillsModel.create(req.body);
-        res.status(200).json({ status: "success", data });
+        const reqBody =  req.body
+
+        const addSkill = await SkillsModel.create(reqBody)
+
+        res.status(200).json({ status: "success", data: addSkill });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
     }
 };
-exports.getSkills = async (req, res) => {
-    try {
-        const data = await SkillsModel.find()
-        res.status(200).json({ status: "success", data });
-    } catch (e) {
-        res.status(400).json({ status: "fail", data: e.toString() });
-    }
-};
-exports.deleteSkills = async (req, res) => {
+exports.addFrontendSkills = async (req, res) => {
     try {
         const id = req.params.id;
-        await SkillsModel.findByIdAndDelete(id);
-        res.status(200).json({ status: "success", data });
+        const { skillName, percentage } = req.body
+
+        const updateSkills = await SkillsModel.findByIdAndUpdate(id, 
+            {
+                $push: {frontendskills:{ skillName, percentage} }
+        },{new: true}
+    )
+        res.status(200).json({ status: "success", data: updateSkills });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
     }
 };
+exports.addbackendSkills = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { skillName, percentage } = req.body
+
+        const updateSkills = await SkillsModel.findByIdAndUpdate(id, 
+            {
+                $push: {backendskills:{ skillName, percentage} }
+        },{new: true}
+    )
+        res.status(200).json({ status: "success", data: updateSkills });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
+exports.getfrontendskills = async (req, res) => {
+    try {
+      const frontendSkills = await SkillsModel.find({}, { frontendskills: 1, _id: 0 });
+  
+      res.status(200).json({ status: "success", data: frontendSkills });
+    } catch (e) {
+      res.status(400).json({ status: "fail", data: e.toString() });
+    }
+  };
+exports.getbackendskills = async (req, res) => {
+    try {
+        const backendskills = await SkillsModel.find({}, {backendskills: 1, _id: 0})
+        
+        res.status(200).json({ status: "success", data: backendskills });
+    } catch (e) {
+        res.status(400).json({ status: "fail", data: e.toString() });
+    }
+};
+
+
+
 
 exports.getIntro = async (req, res) => {
     try {

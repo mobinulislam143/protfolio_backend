@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Controller = require('../Controller/Controller');
 
-// Intro routes
-router.post('/createSkills', Controller.createSkills); // Create a new intro
-router.get('/getSkills', Controller.getSkills); // Create a new intro
-router.delete('/deleteSkills/:id', Controller.deleteSkills); // Create a new intro
+router.post('/addFrontendSkills/:id', Controller.addFrontendSkills); 
+router.post('/addbackendSkills/:id', Controller.addbackendSkills); 
+router.get('/getfrontendskills', Controller.getfrontendskills); 
+router.get('/getbackendskills', Controller.getbackendskills); 
+router.post('/addskill', Controller.addskills);
 
+
+// Intro routes
 router.post('/postintro', Controller.createIntro); // Create a new intro
 router.get('/getintro', Controller.getIntro); // Get all intros
 
