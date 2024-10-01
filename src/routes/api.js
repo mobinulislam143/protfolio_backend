@@ -12,6 +12,7 @@ router.post('/addskill', Controller.addskills);
 // Intro routes
 router.post('/postintro', Controller.createIntro); // Create a new intro
 router.get('/getintro', Controller.getIntro); // Get all intros
+router.get('/test', Controller.test); // Get all intros
 
 router.put('/updateintro/:id', Controller.updateIntro); // Update an intro by ID
 router.delete('/deleteintro/:id', Controller.deleteIntro); // Delete an intro by ID
