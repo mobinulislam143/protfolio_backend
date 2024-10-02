@@ -21,13 +21,8 @@ app.use(xss());
 app.use(hpp());
 
 // Configure CORS
-const corsOptions = {
-  origin: ['http://localhost:5173'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 
 // Body Parser Implement
 app.use(express.json()); // Simplified for parsing JSON
