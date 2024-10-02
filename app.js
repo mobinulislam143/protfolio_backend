@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const path = require('path');
 const cors = require('cors');
 
 // Database Lib Import
@@ -30,6 +31,9 @@ app.use(express.json()); // Simplified for parsing JSON
 // Request Rate Limit
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000 });
 app.use(limiter);
+
+console.log('Current Directory:', __dirname);
+console.log('Resolved Path:', path.resolve(__dirname, './src/Routes/api'));
 
 const appRouter = require('./src/Routes/api');
 app.use("/api", appRouter);
