@@ -32,10 +32,9 @@ app.use(express.json()); // Simplified for parsing JSON
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000 });
 app.use(limiter);
 
-console.log('Current Directory:', __dirname);
-console.log('Resolved Path:', path.resolve(__dirname, './src/Routes/api'));
 
-const appRouter = require('./src/Routes/api');
+
+const appRouter = require('./src/routes/api');
 app.use("/api", appRouter);
 
 // Mongo DB Database Connection
