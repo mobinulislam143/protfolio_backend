@@ -8,7 +8,7 @@ router.get('/getfrontendskills', Controller.getfrontendskills);
 router.get('/getbackendskills', Controller.getbackendskills); 
 router.post('/addskill', Controller.addskills);
 
-
+ 
 // Intro routes
 router.post('/postintro', Controller.createIntro); // Create a new intro
 router.get('/getintro', Controller.getIntro); // Get all intros

@@ -139,7 +139,7 @@ exports.createBlog = async (req, res) => {
 exports.getAllBlogs = async (req, res) => {
     try {
         const data = await BlogModel.find();
-        res.status(200).json({ status: "success", data });
+        res.status(200).json({ status: "success", data:data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
     }
