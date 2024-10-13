@@ -307,7 +307,7 @@ exports.createGallery = async (req, res) => {
 exports.getAllGallery = async (req, res) => {
     try {
         const data = await GalleryModel.find();
-        res.status(200).json({ status: "success", data });
+        res.status(200).json({ status: "success", data:data });
     } catch (e) {
         res.status(400).json({ status: "fail", data: e.toString() });
     }
