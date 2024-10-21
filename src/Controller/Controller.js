@@ -6,6 +6,8 @@ const GalleryModel = require('../models/galleryModel');
 const PortfolioModel = require('../models/portfolioModel');
 const ServiceModel = require('../models/serviceModel');
 const SkillsModel = require('../models/skillsModel');
+const UserModel = require('../models/userModel');
+const StarModel = require('../models/starModel');
 
 // CRUD for IntroModel
 exports.createIntro = async (req, res) => {
@@ -461,3 +463,49 @@ exports.deleteService = async (req, res) => {
         res.status(400).json({ status: "fail", data: e.toString() });
     }
 };
+
+
+//login user
+exports.login = async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      let user = await UserModel.findOne({ email });
+      if (!user) {
+        // If the user does not exist, create a new user entry
+        user = new UserModel({ email });
+        await user.save();
+      }
+  
+      const token = jwt.sign({ userId: user._id }, 'one_day_billionaire', {
+        expiresIn: '1h',
+      });
+  
+      res.status(200).json({ message: 'Login successful', token });
+    } catch (error) {
+      res.status(500).json({ error: 'Login failed' });
+    }
+  };
+
+  //start controller
+
+  // Add a star rating
+exports.addStar = async (req, res) => {
+    const { rating } = req.body;
+    const userId = req.user.userId;
+  
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ error: 'Rating must be between 1 and 5' });
+    }
+  
+    try {
+      const newStar = new StarModel({
+        user: userId,
+        rating,
+      });
+      await newStar.save();
+      res.status(201).json({ message: 'Star rating added successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to add star rating' });
+    }
+  };

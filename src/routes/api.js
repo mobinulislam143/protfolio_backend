@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Controller = require('../Controller/Controller');
+const AuthMiddleware = require('../middleware/AuthMiddleware');
 
 router.post('/addFrontendSkills/:id', Controller.addFrontendSkills); 
 router.post('/addbackendSkills/:id', Controller.addbackendSkills); 
@@ -59,5 +60,13 @@ router.get('/getservices', Controller.getAllService); // Get all services
 router.get('/getservice/:id', Controller.getServiceById); // Get a single service by ID
 router.put('/updateservice/:id', Controller.updateService); // Update service by ID
 router.delete('/deleteservice/:id', Controller.deleteService); // Delete service by ID
+
+
+
+// user route
+router.post('/login', Controller.login);
+
+// Star routes (protected)
+router.post('/star', AuthMiddleware.authenticate, Controller.addStar);
 
 module.exports = router;
