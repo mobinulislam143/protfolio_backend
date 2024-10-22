@@ -63,7 +63,7 @@ router.delete('/deleteservice/:id', Controller.deleteService); // Delete service
 
 router.post('/login', Controller.login); // Delete service by ID
 router.get('/getAllUsers', Controller.getAllUsers); // Delete service by ID
-router.get('/getAllStars', Controller.getAllStars); // Delete service by ID
+router.get('/getAllStars',AuthMiddleware, Controller.getAllStars); // Delete service by ID
 router.post('/addstar', AuthMiddleware, Controller.addStar); // Delete service by ID
 
 module.exports = router;

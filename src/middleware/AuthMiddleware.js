@@ -1,6 +1,6 @@
 const { DecodeToken } = require("../utility/TokenHelper");
 
-const AuthverifyMiddleware = (req, res, next) => {
+module.exports= (req, res, next) => {
     let token = req.headers['token'] || req.cookies['token'];
     console.log("Token from headers or cookies:", token);
 
@@ -23,4 +23,3 @@ const AuthverifyMiddleware = (req, res, next) => {
 }
 
 
-module.exports = AuthverifyMiddleware

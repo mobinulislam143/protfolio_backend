@@ -518,7 +518,8 @@ exports.login = async (req, res) => {
         } 
 
         // Create a token
-        const token = EncodeToken(email, user._id.toString());
+        let user_id = user._id.toString();
+        let token = EncodeToken(email, user_id);
 
         // Set cookie options
         const CookieOption = { expires: new Date(Date.now() + 1 * 60 * 60 * 1000), httpOnly: true };
@@ -527,7 +528,7 @@ exports.login = async (req, res) => {
         res.cookie('token', token, CookieOption);
 
         // Send the response
-        res.status(200).json({ message: 'Login successful', token: token });
+        res.status(200).json({ status: "success", token: token, data: user,  });
     } catch (error) {
         res.status(500).json({ status: 'failed', msg: error.message });
     }
