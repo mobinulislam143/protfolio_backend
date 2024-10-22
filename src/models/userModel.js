@@ -6,7 +6,11 @@ const DataSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    
+    name: {
+      type: String,
+      required: true,
+    }
+   
    
   },
   {timestamps: true, versionKey: false});

@@ -1,16 +1,26 @@
-const jwt = require('jsonwebtoken');
+const { DecodeToken } = require("../utility/TokenHelper");
 
-exports.authenticate = (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) {
-    return res.status(401).json({ error: 'Access denied. No token provided.' });
-  }
+const AuthverifyMiddleware = (req, res, next) => {
+    let token = req.headers['token'] || req.cookies['token'];
+    console.log("Token from headers or cookies:", token);
 
-  try {
-    const decoded = jwt.verify(token, 'one_day_billionaire');
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(400).json({ error: 'Invalid token' });
-  }
-};
+    if (!token) {
+        return res.status(401).json({ status: "fail", message: "Unauthorized" });
+    }
+
+    let decode = DecodeToken(token);
+    console.log("Decoded Token:", decode);
+
+    if (decode === null) {
+        return res.status(401).json({ status: "fail", message: "Unauthorized" });
+    } else {
+        let email = decode['email'];
+        let user_id = decode['user_id'];
+        req.headers.email = email;
+        req.headers.user_id = user_id;
+        next();
+    }
+}
+
+
+module.exports = AuthverifyMiddleware

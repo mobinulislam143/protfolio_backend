@@ -61,12 +61,9 @@ router.get('/getservice/:id', Controller.getServiceById); // Get a single servic
 router.put('/updateservice/:id', Controller.updateService); // Update service by ID
 router.delete('/deleteservice/:id', Controller.deleteService); // Delete service by ID
 
-
-
-// user route
-router.post('/login', Controller.login);
-
-// Star routes (protected)
-router.post('/star', AuthMiddleware.authenticate, Controller.addStar);
+router.post('/login', Controller.login); // Delete service by ID
+router.get('/getAllUsers', Controller.getAllUsers); // Delete service by ID
+router.get('/getAllStars', Controller.getAllStars); // Delete service by ID
+router.post('/addstar', AuthMiddleware, Controller.addStar); // Delete service by ID
 
 module.exports = router;

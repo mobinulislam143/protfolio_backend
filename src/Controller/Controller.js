@@ -8,6 +8,12 @@ const ServiceModel = require('../models/serviceModel');
 const SkillsModel = require('../models/skillsModel');
 const UserModel = require('../models/userModel');
 const StarModel = require('../models/starModel');
+const mongoose  = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
+const jwt = require('jsonwebtoken');
+const { EncodeToken } = require('../utility/TokenHelper');
+
+// const { EncodeToken } = require('../utility/TokenHelper');
 
 // CRUD for IntroModel
 exports.createIntro = async (req, res) => {
@@ -465,47 +471,108 @@ exports.deleteService = async (req, res) => {
 };
 
 
-//login user
+
+
+// Registration controller
+// exports.register = async (req, res) => {
+//     const { email, name, password } = req.body;
+
+//     try {
+//         // Check if the user already exists
+//         const existingUser = await UserModel.findOne({ email: email });
+//         if (existingUser) {
+//             return res.status(400).json({ status: 'failed', msg: 'User already exists' });
+//         }
+
+//         // Create a new user
+//         const newUser = new UserModel({
+//             email: email,
+//             name: name,
+//             password: password // Store password in plain text
+//         });
+//         await newUser.save();
+
+//         // Send response
+//         res.status(201).json({ message: 'Registration successful', data: newUser });
+//     } catch (error) {
+//         res.status(500).json({ status: 'failed', msg: error.message });
+//     }
+// };
+
+
+
 exports.login = async (req, res) => {
-    const { email } = req.body;
-  
+    const { email, name } = req.body;
+
     try {
-      let user = await UserModel.findOne({ email });
-      if (!user) {
-        // If the user does not exist, create a new user entry
-        user = new UserModel({ email });
-        await user.save();
-      }
-  
-      const token = jwt.sign({ userId: user._id }, 'one_day_billionaire', {
-        expiresIn: '1h',
-      });
-  
-      res.status(200).json({ message: 'Login successful', token });
+        // Create or find the user by email
+        let user = await UserModel.findOne({ email: email });
+
+        if (!user) {
+            // If the user does not exist, create a new user
+            user = new UserModel({
+                email: email,
+                name: name, // Include name
+            });
+            await user.save();
+        } 
+
+        // Create a token
+        const token = EncodeToken(email, user._id.toString());
+
+        // Set cookie options
+        const CookieOption = { expires: new Date(Date.now() + 1 * 60 * 60 * 1000), httpOnly: true };
+
+        // Set the token in a cookie
+        res.cookie('token', token, CookieOption);
+
+        // Send the response
+        res.status(200).json({ message: 'Login successful', token: token });
     } catch (error) {
-      res.status(500).json({ error: 'Login failed' });
+        res.status(500).json({ status: 'failed', msg: error.message });
     }
-  };
+};
 
-  //start controller
 
-  // Add a star rating
+
 exports.addStar = async (req, res) => {
-    const { rating } = req.body;
-    const userId = req.user.userId;
-  
-    if (!rating || rating < 1 || rating > 5) {
-      return res.status(400).json({ error: 'Rating must be between 1 and 5' });
-    }
-  
+    let UserID = req.headers.user_id; // This line is fine
+    let reqBody = req.body;
+    reqBody.userID = UserID;
+
     try {
-      const newStar = new StarModel({
-        user: userId,
-        rating,
-      });
-      await newStar.save();
-      res.status(201).json({ message: 'Star rating added successfully' });
+        // This should reference the correct header
+        if (!UserID) { // Change req.userId to UserID
+            return res.status(401).json({ status: 'failed', msg: 'User not authenticated' });
+        }
+
+        const starRating = await StarModel.create(reqBody);
+        
+        res.status(201).json({ message: 'Rating submitted successfully', rating: starRating });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to add star rating' });
+        res.status(500).json({ status: 'failed', msg: error.message });
     }
-  };
+};
+
+
+
+
+// Get all registered users
+exports.getAllUsers = async (req, res) => {
+    try {
+        const users = await UserModel.find({}, { password: 0 }); // Exclude password from response
+        res.status(200).json({ status: 'success', data: users });
+    } catch (error) {
+        res.status(500).json({ status: 'failed', msg: error.message });
+    }
+};
+// Get all star ratings
+exports.getAllStars = async (req, res) => {
+    try {
+        const stars = await StarModel.find(); // Get all stars
+        const starCount = await StarModel.countDocuments(); // Count all stars
+        res.status(200).json({ status: 'success', star: starCount, data: stars });
+    } catch (error) {
+        res.status(500).json({ status: 'failed', msg: error.message });
+    }
+};
